@@ -1,0 +1,549 @@
+service: kis-serverless
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  memorySize: 512
+  timeout: 10
+  environment:
+    STAGE: ${self:provider.stage}
+    #  JWT
+    JWT_SECRET: ${env:JWT_SECRET}
+    REFRESH_SECRET: ${env:REFRESH_SECRET}
+    # redis
+    REDIS_HOST: ${env:REDIS_HOST}
+    REDIS_PORT: ${env:REDIS_PORT}
+    # MySQL 
+    DB_HOST: ${env:DB_HOST}
+    DB_USER: ${env:DB_USER}
+    DB_PASSWORD: ${env:DB_PASSWORD}
+    DB_NAME: ${env:DB_NAME}
+    DB_PORT: ${env:DB_PORT}
+
+plugins:
+  - serverless-auto-swagger
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    httpPort: ${env:PORT}
+
+  autoswagger:
+    title: API Documentation
+    generateSwaggerOnDeploy: true
+    swaggerFiles: ['./swagger/swagger-definitions.json']
+    useStage: true
+    basePath: '/dev'
+    host: 'localhost:4000'
+    version: 1.0.0
+    apiKeyHeaders: ['Authorization']
+    endpoint: /swagger.json
+    description: API documentation for kis-serverless service
+
+functions:
+  login:
+    handler: wb_api_login/src/handlers.start 
+    events:
+      - http:
+          path: login
+          method: post
+          cors: true
+          operationId: postLogin
+          description: 'User login'
+          bodyType: 'LoginDAO'
+          responseData:
+            200:
+              description: 'Login successful'
+              bodyType: 'LoginResponseDAO'
+            400:
+              description: 'Username or password is invalid!'
+            404:
+              description: 'User not found!'
+            500:
+              description: 'Server error'
+          swaggerTags: ['User Authentication']
+
+      - http:
+          path: refresh
+          method: post
+          cors: true
+          operationId: postRefresh
+          description: 'Refresh token'
+          bodyType: 'RefreshDAO'
+          responseData:
+            200:
+              description: 'Token refreshed successfully'
+              bodyType: 'RefreshResponseDAO'
+            400:
+              description: 'Invalid refresh token'
+            500:
+              description: 'Server error'
+          swaggerTags: ['User Authentication']
+
+  register:
+    handler: wb_api_register/src/handler.start
+    events:
+      - http:
+          path: register
+          method: post
+          cors: true
+          operationId: postRegister
+          description: 'Register new user'
+          bodyType: 'RegisterDAO'
+          responseData:
+            201:
+              description: 'User registered successfully'
+              bodyType: 'RegisterResponseDAO'
+            400:
+              description: 'Invalid input data'
+            500:
+              description: 'Server error'
+          swaggerTags: ['User Authentication']
+
+  verify-token:
+    handler: wb_api_verify_token/src/handler.run
+    events:
+      - http:
+          path: verify-token
+          method: post
+          cors: true
+          operationId: postVerifyToken
+          description: 'Verify user token'
+          responseData:
+            200:
+              description: 'Token valid'
+            400:
+              description: 'Invalid token'
+            500:
+              description: 'Server error'
+          swaggerTags: ['User Authentication']
+
+  logout:
+    handler: wb_api_logout/src/handler.logout
+    events:
+      - http:
+          path: logout
+          method: post
+          cors: true
+          operationId: postLogout
+          description: 'Logout user'
+          responseData:
+            200:
+              description: 'Logged out successfully'
+            400:
+              description: 'Token required'
+          swaggerTags: ['User Authentication']
+  
+  get-users-by-id:
+    handler: wb_api_get_user_by_id/src/handler.getUserById
+    events:
+      - http:
+          path: profile/{userId}
+          method: get
+          cors: true
+          operationId: getUserById
+          responseData:
+            200: 
+              description: 'User details retrieved successfully'
+              bodyType: 'UserDAO'
+            400:
+              description: 'Token required'
+            404:
+              description: 'User not found'
+            500:
+              description: 'Could not retrieve user information'
+          swaggerTags: ['User Management']
+
+  get-users:
+    handler: wb_api_get_users/src/handler.getUsers
+    events:
+      - http:
+          path: users
+          method: get
+          cors: true
+          operationId: getUsers
+          responseData:
+            200: 
+              description: 'Users retrieved successfully'
+              bodyType: 'UserDAO'
+            404:
+              description: 'No users found'
+            500:
+              description: 'Could not retrieve users information'
+          swaggerTags: ['User Management']
+
+  get-delete-users:
+    handler: wb_api_get_delete_users/src/handler.getDeleteUsers
+    events:
+      - http:
+          path: deleted-users
+          method: get
+          cors: true
+          operationId: getDeletedUsers
+          responseData:
+            200:
+              description: 'Deleted users retrieved successfully'
+              bodyType: 'UserDAO'
+            404:
+              description: 'No deleted users found'
+            500:
+              description: 'Could not retrieve deleted users information'
+          swaggerTags: ['User Management']
+
+  update-user:
+    handler: wb_api_update_user/src/handler.updateUser
+    events:
+      - http:
+          path: profile/{userId}
+          method: put
+          cors: true
+          operationId: putUpdateUser
+          responseData:
+            200: 
+              description: 'User updated successfully'
+              bodyType: 'UserDAO'
+            400:
+              description: 'Token required'
+            500:
+              description: 'Could not update password'
+          swaggerTags: ['User Management']
+
+  create-new-project:
+    handler: wb_api_create_new_project/src/handler.createProject
+    events:
+      - http:
+          path: create-new-project
+          method: post
+          cors: true
+          operationId: postCreateNewProject
+          description: 'Create a new project'
+          bodyType: 'NewProjectDAO'
+          responseData:
+            200:
+              description: 'Project created successfully'
+              bodyType: 'ProjectDAO'
+            400:
+              description: 'Invalid project data'
+            500:
+              description: 'Server error'
+          swaggerTags: ['Project Management']
+
+  get-projects:
+    handler: wb_api_project_list/src/handler.projects
+    events:
+      - http:
+          path: projects
+          method: get
+          cors: true
+          operationId: getProjects
+          description: 'Get all projects'
+          responseData:
+            200:
+              description: 'List of projects'
+              bodyType: 'ProjectDAO'
+            400:
+              description: 'Token required'
+            403:
+              description: 'Invalid token'
+            500:
+              description: 'Server error'
+          swaggerTags: ['Project Management']
+
+  get-project-detail:
+    handler: wb_api_get_project_detail/src/handler.getProjectDetails
+    events:
+      - http:
+          path: project-detail/{projectId}
+          method: get
+          cors: true
+          operationId: getProjectDetail
+          description: 'Get project details'
+          responseData:
+            200:
+              description: 'Project details retrieved'
+              bodyType: 'ProjectDAO'
+            400:
+              description: 'Token required'
+            404:
+              description: 'Project not found'
+            500:
+              description: 'Server error'
+          swaggerTags: ['Project Management']
+
+  get-page-detail:
+    handler: wb_api_page_detail/src/handler.getPageDetails
+    events:
+      - http:
+          path: page-detail/{alias}/{url_alias}
+          method: get
+          cors: true
+          operationId: getPageDetails
+          description: 'Get page details'
+          responseData:
+            200:
+              description: 'Page details retrieved'
+              bodyType: 'PageDAO'
+            400:
+              description: 'Token required'
+            404:
+              description: 'Page not found'
+            500:
+              description: 'Server error'
+          swaggerTags: ['Project Management']       
+
+  update-project:
+    handler: wb_api_update_project/src/handler.updateProject
+    events:
+      - http:
+          path: project-detail/{projectId}
+          method: put
+          cors: true
+          operationId: putUpdateProject
+          description: 'Update project details'
+          responseData:
+            200:
+              description: 'Project updated successfully'
+              bodyType: 'ProjectDAO'
+            400:
+              description: 'Invalid project data'
+            404:
+              description: 'Project not found'
+            500:
+              description: 'Server error'
+          swaggerTags: ['Project Management']
+
+  delete-project:
+    handler: wb_api_delete_project/src/handler.deleteProject
+    events:
+      - http:
+          path: projects/{projectId}
+          method: delete
+          cors: true
+          operationId: deleteProject
+          description: 'Delete project'
+          responseData:
+            200:
+              description: 'Project deleted successfully'
+            404:
+              description: 'Project not found'
+            500:
+              description: 'Server error'
+          swaggerTags: ['Project Management']
+
+  duplicate-project:
+    handler: wb_api_duplicate_project/src/handler.duplicateProject
+    events:
+      - http:
+          path: projects/{projectId}/duplicate
+          method: post
+          cors: true
+          operationId: postDuplicateProject
+          description: 'Duplicate a project'
+          responseData:
+            200:
+              description: 'Project duplicated successfully'
+              bodyType: 'ProjectDAO'
+            404:
+              description: 'Project not found'
+            500:
+              description: 'Server error'
+          swaggerTags: ['Project Management']
+
+  create-new-page:
+    handler: wb_api_create_new_page/src/handler.createPage
+    events:
+      - http:
+          path: projects/{alias}/create-new-page
+          method: post
+          cors: true
+          operationId: postCreateNewPage
+          description: 'Create a new page'
+          bodyType: "NewPageDAO"
+          responseData:
+            200:
+              description: 'Page created successfully'
+              bodyType: 'PageDAO'
+            400:
+              description: 'Invalid page data'
+            500:
+              description: 'Server error'
+          swaggerTags: ['Page Management']
+
+  get-projects-detail-by-alias:
+    handler: wb_api_get_project_by_alias/src/handler.getProjectDetailsByAlias
+    events:
+      - http:
+          path: projects-detail/{alias}
+          method: get
+          cors: true
+          operationId: getProjectDetailsByAlias
+          description: 'Get all projects by alias'
+          responseData:
+            200:
+              description: 'List of projects by alias'
+              bodyType: 'ProjectDAO'
+            500:
+              description: 'Server error'
+          swaggerTags: ['Page Management']
+
+
+  get-pages:
+    handler: wb_api_get_pages/src/handler.getPages
+    events:
+      - http:
+          path: page-detail/{alias}
+          method: get
+          cors: true
+          operationId: getPages
+          description: 'Get all pages'
+          responseData:
+            200:
+              description: 'List of pages'
+              bodyType: 'PageDAO'
+            500:
+              description: 'Server error'
+          swaggerTags: ['Page Management']
+
+
+  update-page:
+    handler: wb_api_update_page/src/handler.updatePage
+    events:
+      - http:
+          path: projects/{alias}/{url_alias}/update
+          method: put
+          cors: true
+          operationId: updatePage
+          description: 'Update page details'
+          responseData:
+            200:
+              description: 'Page updated successfully'
+              bodyType: 'PageDAO'
+            400:
+              description: 'Token required'
+            404:
+              description: 'Page not found'
+            500:
+              description: 'Could not update page'
+          swaggerTags: ['Page Management']
+
+  delete-page:
+    handler: wb_api_delete_page/src/handler.deletePage
+    events:
+      - http:
+          path: projects/{alias}/{url_alias}
+          method: delete
+          cors: true
+          operationId: deletePage
+          description: 'Delete page'
+          responseData:
+            200:
+              description: 'Page deleted successfully'
+            400:
+              description: 'Token required'
+            404:
+              description: 'Page not found'
+            500:
+              description: 'Could not delete page'
+          swaggerTags: ['Page Management']
+              
+  upload-image:
+    handler: wb_api_upload_image/src/handler.handler
+    events:
+      - http:
+          path: upload-image
+          method: post
+          integration: LAMBDA
+          cors: true
+          operationId: postUploadImage
+          bodyType: 'ImageDAO'
+          responseData: 
+            200: 
+              description: 'Success'
+              bodyType: 'ImageResponseDAO'
+            500: 
+              description: 'Error saving image data to the database'
+          swaggerTags: ['Image Management']
+
+  delete-user:
+    handler: wb_api_delete_user/src/handler.deleteUser
+    events:
+      - http:
+          path: delete-user/{userId}
+          method: delete
+          cors: true
+          operationId: deleteUser
+          description: 'Delete a user by ID'
+          responseData:
+            200:
+              description: 'User deleted successfully'
+            400:
+              description: 'Invalid user ID'
+            404:
+              description: 'User not found'
+            500:
+              description: 'Server error'
+          swaggerTags: ['User Management']
+
+  restore-user:
+    handler: wb_api_restore_user/src/handler.restoreUser
+    events:
+      - http:
+          path: restore-user/{userId}
+          method: put
+          cors: true
+          operationId: restoreUser
+          description: 'Restore a soft-deleted user'
+          responseData:
+            200:
+              description: 'User restored successfully'
+            400:
+              description: 'Invalid user ID or user already active'
+            404:
+              description: 'User not found'
+            500:
+              description: 'Server error'
+          swaggerTags: ['User Management']
+
+  check-user-role:
+   handler: wb_api_check_user_role/src/handler.checkUserRole
+   events:
+    - http:
+        path: check-user-role
+        method: get
+        cors: true
+        operationId: checkUserRole
+        description: 'Check the role of the authenticated user'
+        responseData:
+          200:
+            description: 'Successfully retrieved user role'
+          401:
+            description: 'Unauthorized, missing or invalid token'
+          404:
+            description: 'User not found'
+          500:
+            description: 'Server error'
+        swaggerTags: ['User Management']
+  get-layout:
+    handler: wb_api_get_layout/src/handler.getAllLayouts
+    events:
+      - http:
+          path: layout
+          method: get
+          cors: true
+          operationId: getLayout
+          description: 'Retrieve all layout entities from the database'
+          responseData:
+            200:
+              description: 'List of all layouts'
+              bodyType: 'LayoutDAO'
+            404:
+              description: 'No layouts found'
+            400:
+              description: 'Token required'
+            403:
+              description: 'Invalid token'
+            500:
+              description: 'Server error'
+          swaggerTags: ['Layout Management']

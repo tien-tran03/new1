@@ -1,0 +1,12 @@
+{
+  "watch": [
+    "wb_serverless/**/*.ts",
+    "wb_serverless/**/*.json"
+  ],
+  "ext": "ts,json",
+  "ignore": [
+    "src/**/*.spec.ts"
+  ],
+  "exec": "cd apps/web_builder/wb_backend/wb_serverless && sls offline --debug --stage dev --reloadHandler",
+  "delay": 1500
+}

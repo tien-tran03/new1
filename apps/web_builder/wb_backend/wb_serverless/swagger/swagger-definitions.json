@@ -1,0 +1,198 @@
+{
+  "definitions": {
+    "NewPageDAO": {
+      "type": "object",
+      "properties": {
+        "url_alias": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "metaTags": {
+          "type": "string"
+        },
+        "sections": {
+          "type": "JSON"
+        }
+      }
+    },
+    "NewProjectDAO": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "alias": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "thumbnail": {
+          "type": "string"
+        }
+      }
+    },
+    "PageDAO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "url_alias": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "meta_tags": {
+          "type": "string"
+        },
+        "sections": {
+          "type": "JSON"
+        },
+        "project_id": {
+          "type": "number"
+        }
+      }
+    },
+    "UserDAO": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "number"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "LoginResponseDAO": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "refreshToken": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "number"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "LoginDAO": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "RefreshResponseDAO": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "refreshToken": {
+          "type": "string"
+        }
+      }
+    },
+    "RefreshDAO": {
+      "type": "object",
+      "properties": {
+        "refreshToken": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectDAO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "thumbnail": {
+          "type": "string"
+        },
+        "alias": {
+          "type": "string"
+        }
+      }
+    },
+    "RegisterResponseDAO": {
+      "type": "object",
+      "properties": {
+        "newUserId": {
+          "type": "number"
+        },
+        "newUsername": {
+          "type": "string"
+        }
+      }
+    },
+    "RegisterDAO": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "ImageResponseDAO": {
+      "type": "object",
+      "properties": {
+        "signedUrl": {
+          "type": "string"
+        },
+        "shortUrl": {
+          "type": "string"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "imageId": {
+          "type": "number"
+        }
+      }
+    },
+    "ImageDAO": {
+      "type": "object",
+      "properties": {
+        "fileName": {
+          "type": "string"
+        },
+        "fileType": {
+          "type": "string"
+        },
+        "signedUrl": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+    "header": {
+        "account": "Account",
+        "profile": "Profile",
+        "logout": "Logout",
+        "logOut": "Logging out...",
+        "search_project": "Search project "
+    },
+    "projects_list": {
+        "all_projects_you_have": "All projects you have",
+        "loading": "Loading...",
+        "loadingt": "Please wait while we fetch your projects.",
+        "no_projects_found": "No projects found.",
+        "list_projects": "List projects",
+        "create_new_project": "Create New Project",
+        "project_name": "Project name",
+        "created": "Created",
+        "last_updated": "Last Updated"
+    },
+    "users_list": {
+        "username": "Username",
+        "role": "Role",
+        "loading": "Loading...",
+        "loadingt": "Please wait while we fetch your projects.",
+        "deletedAt": "Deleted At",     
+        "restore": "Restore",
+        "deactive": "Deactive",
+        "user_title": "User List",
+        "user_total": "Total Users"
+    },
+    "context_menu": {
+        "view": "View",
+        "edit": "Edit",
+        "duplicate": "Duplicate",
+        "delete": "Delete",
+        "publish": "Publish",
+        "move_to_folder": "Move to folder",
+        "project_settings": "Project Settings"
+    },
+    "edit_project": {
+        "edit_project":"Edit Project",
+        "project_name": "Project Name",
+        "description": "Description",
+        "cancel": "Cancel",
+        "save": "Save"
+    },
+    "detail_project": {
+        "details_project": "Project Detail",
+        "loading": "Loading...",
+        "loadingt": "Please wait while we fetch the project data.",
+        "create_new_page": "Create New Page",
+        "project_name": "Project Name",
+        "description": "Description",
+        "created_on": "Created On",
+        "updated_on": "Updated On",
+        "title": "Title",
+        "title_delete": "Are you sure?",
+        "title_delete_text": "Do you really want to delete this page?",
+        "confirm_button_yes": "Yes, delete it!",
+        "confirm_button_no": "No, cancel!",
+        "meta_tag": "Meta tag",
+        "Actions": "Actions",
+        "page": "Page",
+        "edit": "Edit",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "save": "Save"
+    },
+    "edit_page": {
+        "edit_page": "Edit Page",
+        "create_page": "Edit Page",
+        "title": "Title",
+        "meta_tag": "Meta tag",
+        "cancel": "Cancel",
+        "save": "Save",
+        "create": "Create"
+    },
+    "sidebar": {
+        "dashboard": "Dashboard",
+        "projects": "Project",
+        "your_template": "Your Template",
+        "learn": "Learn"
+    },
+    "sidebar-admin": {
+        "user_list": "User List",
+        "projects_admin": "Projects",
+        "page_admin": "Pages"
+    },
+    "user_profile": {
+        "password": "Password",
+        "change_password": "Change Password",
+        "user_profile": "User Profile",
+        "cancel": "Cancel",
+        "save": "Save Changes",
+        "old_password": "oldPassword",
+        "new_password": "newPassword",
+        "confirm_new_password": "confirmNewPassword",
+        "new_passwords_do_not_match.": " New passwords do not match.",
+        "password_updated_successfully": "Password updated successfully!",
+        "failed_to_update_password": "Failed to update password. Please check your old password and try again."
+    },
+    "creat_projects": {
+        "create_project": "Create Project",
+        "project_name": "Project Name:",
+        "description": "Description:",
+        "cancel": "Cancel",
+        "create": "Create"
+       
+    },
+
+   "dashboard": {
+        "title": "",
+        "project_name": "Project Name:",
+        "description": "Description:",
+        "cancel": "Cancel",
+        "create": "Create"
+       
+    }
+}

@@ -1,0 +1,26 @@
+1 Cài đặt thư viện react-i18next và i18next:
+npm install react-i18next i18next --save
+2 Tạo File Dịch
+Trong thư mục wb_frontend/src/i18n/lang_resources, tạo các thư mục ngôn ngữ:
+
+Ví dụ nội dung file en/en.json:
+  "sidebar": {
+        "dashboard": "Dashboard",
+        "projects": "Project",
+        "your_template": "Your Template",
+        "learn": "Learn"
+    },
+Và nội dung file vi/vi.json:
+   "sidebar": {
+        "dashboard": "Trang chủ",
+        "projects": "Dự án",
+        "your_template": "Mẫu giao diện",
+        "learn": "Hướng dẫn"       
+    },
+3 Sử Dụng i18n Trong Component
+
+import { useTranslation } from 'react-i18next';
+
+const { t } = useTranslation('translation');
+
+

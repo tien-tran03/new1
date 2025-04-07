@@ -1,0 +1,118 @@
+{
+    "header": {
+        "account": "Tài khoản",
+        "profile": "Hồ sơ",
+        "logout": "Đăng xuất",
+        "logOut": "Đăng xuất... ",
+        "search_project": "Tìm kiếm dự án"
+    },
+    "projects_list": {
+        "all_projects_you_have": "Tất cả các dự án của bạn",
+        "list_projects": "Danh sách dự án",
+        "loading": "Đang tải...",
+        "loadingt": "Vui lòng chờ trong khi chúng tôi tải các dự án của bạn..",
+        "no_projects_found": "Không tìm thấy dự án nào.",     
+        "create_new_project": "Tạo Dự Án Mới",
+        "project_name": "Tên Dự Án",
+        "created": "Ngày Tạo",
+        "last_updated": "Cập Nhật Lần Cuối"
+    },
+    "users_list": {
+        "username": "Tên người dùng",
+        "role": "Vai trò",
+        "loading": "Đang tải...",
+        "loadingt": "Vui lòng chờ trong khi chúng tôi tải các dự án của bạn..",
+        "deletedAt": "Thời gian xóa",
+        "restore": "Khôi phục",
+        "deactive": "Vô hiệu hóa",
+        "user_title": "Danh sách người dùng",
+        "user_total": "Tổng số người dùng"
+    },
+    "context_menu": {
+        "view": "Xem",
+        "edit": "Sửa",
+        "duplicate": "Sao Chép",
+        "delete": "Xóa",
+        "publish": "Công bố",
+        "move_to_folder": "Di chuyển ",
+        "project_settings": "Cài đặt Dự Án"
+    },
+    "edit_project": {
+        "edit_project": "Chỉnh sửa dự án",
+        "project_name": "Tên dự án",
+        "description": "Mô tả",
+        "cancel": "Hủy",
+        "save": "Lưu"        
+    },
+    "detail_project": {
+        "details_project": "Chi Tiết Dự Án",
+        "loading": "Đang tải...",
+        "loadingt": "Vui lòng chờ trong khi chúng tôi tải dữ liệu dự án.",
+        "create_new_page": "Tạo Trang Mới",
+        "project_name": "Tên dự án",
+        "description": "Mô tả",
+        "created_on": "Ngày tạo",
+        "updated_on": "Ngày cập nhật",
+        "title": "Tiêu để",
+        "title_delete": "Bạn chắc chứ?",
+        "title_delete_text": "Bạn thực sự muốn xóa trang này không?",
+        "confirm_button_yes": "Có",
+        "confirm_button_no": "Không",
+        "meta_tag": "Từ khóa",
+        "Actions": "Hành động",
+        "page": "DANH SÁCH TRANG",
+        "edit": "Sửa",
+        "delete": "Xóa",
+        "cancel": "Hủy",
+        "save": "Lưu"     
+    },
+    "edit_page": {
+        "edit_page": "Chỉnh sửa thông tin trang",
+        "create_page": "Tạo trang mới",
+        "title": "Tiêu đề",
+        "meta_tag": "Từ khóa",
+        "cancel": "Hủy",
+        "save": "Lưu",
+        "create": "Tạo"        
+    },
+    "sidebar": {
+        "dashboard": "Trang chủ",
+        "projects": "Dự án",
+        "your_template": "Mẫu giao diện",
+        "learn": "Hướng dẫn"       
+    },
+    "sidebar-admin": {
+        "user_list": "Danh sách người dùng",
+        "projects_admin": "Dự án",
+        "page_admin": "Trang"
+    },
+    "user_profile": {
+        "password": "Mật khẩu",
+        "change_password": "Thay đổi mật khẩu",
+        "user_profile": "Hồ sơ người dùng",
+        "save": "Lưu thay đổi",
+        "cancel": "Hủy",
+        "old_password": "Mật khẩu cũ",
+        "new_password": "Mật khẩu mới",
+        "confirm_new_password": "Xác nhận mật khẩu mới",
+        "new_passwords_do_not_match.": " Mật khẩu mới không khớp.",
+        "password_updated_successfully": "Mật khẩu đã được cập nhật thành công!",
+        "failed_to_update_password": "Không thể cập nhật mật khẩu. Vui lòng kiểm tra mật khẩu cũ và thử lại."        
+    },
+    "creat_projects": {
+        "create_project": "Tạo Dự Án",
+        "project_name": "Tên dự án:",
+        "description": "Mô tả:",
+        "cancel": "Hủy",
+        "create": "Tạo"  
+       
+    },
+    "dashboard": {
+        "create_project": "Create Project",
+        "project_name": "Project Name:",
+        "description": "Description:",
+        "cancel": "Cancel",
+        "create": "Create"
+       
+    }
+}
